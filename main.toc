@@ -1,0 +1,11 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Proposition}{2}{section.1}%
+\contentsline {section}{\numberline {2}Logical Arguments}{2}{section.2}%
+\contentsline {section}{\numberline {3}Propositional Logic}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Notations and Lp}{3}{subsection.3.1}%
+\contentsline {subsubsection}{{\it Notation}: Symbols}{3}{nota.3.1}%
+\contentsline {subsubsection}{{\it Definition}: Well Formed Expressions (WFE)}{3}{defn.3.1}%
+\contentsline {subsubsection}{{\it Notation}: Operator Priority}{4}{nota.3.2}%
+\contentsline {section}{\numberline {4}Translating English into Prop Logic}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Examples}{5}{subsection.4.1}%
+\contentsline {subsubsection}{{\it Lemma}: Balanced Paranthesis}{5}{lem.4.1}%

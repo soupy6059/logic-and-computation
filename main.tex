@@ -1,0 +1,213 @@
+\documentclass[12pt]{article}
+\usepackage{my_preamble}
+
+% Document Starts
+\begin{document}
+
+\maketitle 
+
+\begin{abstract}
+\end{abstract}
+
+\tableofcontents
+
+\pagebreak
+% <++>
+
+
+\section{Proposition}
+
+An atomic prop cannot be broek down into smaller propositions.
+
+A compound proposition is composed of atomics props.
+
+\TB{Atomic}
+\begin{itemize}
+  \item I am graduating.
+  \item I am applying for grad school.
+\end{itemize}
+
+\TB{Compound}
+\begin{itemize}
+  \item I am not graduating
+  \item I am graduating implies im applying for grad school
+\end{itemize}
+
+\section{Logical Arguments}
+
+An \TB{argument} is a set of props, consiting of zero or more premises.
+
+\bboxex
+\TB{Premises:} If I am applying for grad schools, then I must be graduating.
+I am graduating.
+\ebox
+\bboxex
+\TB{Conclusion:} I am applying for grad school.
+\ebox
+
+If the concl doesn't follow from prem then the argument is invalid.
+
+% lecture 2
+
+
+\section{Propositional Logic}
+\subsection{Notations and Lp}
+\newcommand{\Lp}{\TM{Lp}}
+
+\bbox
+\begin{nota}[Symbols]\label{nota:sym}
+  \(\,\)\begin{itemize}
+    \item \TB{Proposition Symbols.} Used for atomic formulas. We'll use lowercase 
+      letters, \(\{a,b,c,\dots\}\).
+    \item \TB{Connections.} \(\neg,\wedge,\vee,\to,\leftrightarrow\).
+    \item \TB{Parems.} Denotes order.
+  \end{itemize}
+  Let Lp be the language of propositional logic.
+  \[\wedge\wedge\vee\is\TM{not\;legal}\]
+  \[(p\is\TM{not\;legal}\]
+  We defined a tokenizer. We'll now define the \TB{parser}.
+\end{nota}
+\ebox
+
+
+\bbox
+\begin{defn}[Well Formed Expressions (WFE)]\label{defn:well_exp}
+  \(\,\)
+  \begin{enumerate}
+    \item a propositional symbol is a well formed expression.
+      \[p\is\TM{WFE}\]
+    \item If \(A\in\mathrm{Form}\TM{Lp}\implies(\neg A)\in\mathrm{Form}\TM{Lp}\).
+    \item If \(A,B\in\mathrm{Form}\Lp\implies (A\wedge B)\in\mathrm{Form}\Lp\).
+    \item If \(A,B\in\mathrm{Form}\Lp\implies (A\vee B)\in\mathrm{Form}\Lp\).
+    \item If \(A,B\in\mathrm{Form}\Lp\implies (A\to B)\in\mathrm{Form}\Lp\).
+    \item If \(A,B\in\mathrm{Form}\Lp\implies (A\leftrightarrow B)\in\mathrm{Form}\Lp\).
+  \end{enumerate}
+\end{defn}
+\ebox
+\begin{verbatim}
+data WFE t = PropSym t |
+             ExprBin (t -> t -> t) (WFE t) (WFE t) |
+             ExprUn (t -> t) (WFE t)
+
+eval :: WFE t -> t
+eval wfe = case wfe of
+  PropSym t -> t
+  ExprBim fn l r -> fn (eval l) (eval r)
+  ExprUn fn u -> fn (eval u)
+
+
+neg :: Bool -> Bool
+neg pred = if pred then False else True
+
+conj :: Bool -> Bool -> Bool
+conj a b = if a then b else False
+
+inj :: Bool -> Bool -> Bool
+inj a b = (neg a) `conj` (neg b)
+     -- = (conj `on` neg) a b
+
+xor :: Bool -> Bool -> Bool
+xor a b = (a `ing` b) `conj` ((neg . conj) a b)
+\end{verbatim}
+To make inline Lp work, we need to establish operator prior and associativity.
+\bboxnote
+\begin{nota}[Operator Priority]\label{nota:oper_prior} Operator prior is as follows:
+\begin{enumerate}
+  \item \(\neg\)
+  \item \(\wedge\is\TM{left\;assoc}\)
+  \item \(\vee\is\TM{left\;assoc}\)
+  \item \(\implies\is\TM{right\;assoc}\)
+  \item \(\iff\is\TM{left\;assoc}\)
+\end{enumerate}
+\end{nota}
+\ebox
+\bboxex
+\[((\neg p)\vee q)=\neg p\vee q\]
+\[(p\wedge q)\vee(r\wedge p)=p\wedge q\vee r\wedge q\]
+\[p\to q\to r=p\to(q\to r)\]
+\[p\wedge q\wedge r=(p\wedge q)\wedge r\]
+\ebox
+
+\section{Translating English into Prop Logic}
+
+\subsection{Examples}
+\bboxex
+\begin{equation*}
+  \begin{split}
+    s&:=\T{I am applying to grad schools}\\
+    j&:=\T{I am applying to jobs}\\
+    g&:=\T{I am graduating}\\
+    \T{s or j}&=s\vee j\\
+    \T{i am either S or J but not S and J}&=(s\vee j)\wedge\neg(s\wedge j)\\
+                                          &=s\iff\neg j\\
+                                          &=(s\implies\neg j)\wedge(\neg j\implies s)\\
+    (a\vee b)\wedge\neg(a\wedge b)&:=a\oplus b\\
+    \T{s if g}&=g\implies s\\
+    \T{s only if g}&=s\implies g\\
+    \T{storm}\implies\T{rain}&=\T{rain if storm}\\
+                             &=\T{it's raining if it's storming}\\
+                             &=\T{storm only if rain}\\
+                             &=\T{it's storming only if it's raining}\\
+    \T{g is sufficient for s}&=g\implies s\\
+    \T{g is necessary for s}&=s\implies g\\
+    \T{Although g, i am not j}&=g\wedge\neg j\\
+    \oplus=\neg\circ\leftrightarrow
+  \end{split}
+\end{equation*}
+\ebox
+
+
+\bbox
+\begin{lem}[Balanced Paranthesis]\label{lem:balance_parans_in_lp}
+  Every formula in \(\mathrm{Form}\Lp\) has balanced paranths.
+\end{lem}
+\ebox
+\bboxproof
+\begin{proof}
+  Let \(A\) be an arbitrary formula in \(\mathrm{Form}\Lp\). The following
+  proof is by \TB{structural induction}.
+
+  Let \(LP(A)\) be the number of Left paranthesis' in \(A\). Let \(RP(A)\) be 
+  the number of Right paranthesis' in \(A\).
+
+  \TB{Base Case}: \(A\) is atomic, \(A=p\) for some prop p.
+  \[LP(A)=RP(A)=0\]
+
+  \TB{Inductive Case 1}: \(A=\neg B\) for some \(B\in\mathrm{Form}\Lp\).
+  Our IH says \(LP(B)=RP(B)\).
+  \[LP(A)=LP((\neg B))=1 + LP(B)=1+RP(B)=RP((\neg B))=RP(A)\]
+\end{proof}
+\ebox
+
+% end of lec 2 
+
+% ADD hyperref
+% <++>
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% scrolloff buffer
