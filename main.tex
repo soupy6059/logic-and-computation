@@ -52,7 +52,7 @@ If the concl doesn't follow from prem then the argument is invalid.
 
 \section{Propositional Logic}
 \subsection{Notations and Lp}
-\newcommand{\Lp}{\TM{Lp}}
+\newcommand{\Lp}[1][]{\TM{Lp_{#1}}}
 
 \bbox
 \begin{nota}[Symbols]\label{nota:sym}
@@ -165,10 +165,9 @@ To make inline Lp work, we need to establish operator prior and associativity.
 \bboxproof
 \begin{proof}
   Let \(A\) be an arbitrary formula in \(\mathrm{Form}\Lp\). The following
-  proof is by \TB{structural induction}.
-
-  Let \(LP(A)\) be the number of Left paranthesis' in \(A\). Let \(RP(A)\) be 
-  the number of Right paranthesis' in \(A\).
+  proof is by \TB{structural induction}. Let \(R(A)\) be the property
+  that \(LP(A)=RP(A)\). Letting \(LP(A)\) be the number of Left paranthesis'
+  in \(A\). Let \(RP(A)\) be the number of Right paranthesis' in \(A\).
 
   \TB{Base Case}: \(A\) is atomic, \(A=p\) for some prop p.
   \[LP(A)=RP(A)=0\]
@@ -176,12 +175,192 @@ To make inline Lp work, we need to establish operator prior and associativity.
   \TB{Inductive Case 1}: \(A=\neg B\) for some \(B\in\mathrm{Form}\Lp\).
   Our IH says \(LP(B)=RP(B)\).
   \[LP(A)=LP((\neg B))=1 + LP(B)=1+RP(B)=RP((\neg B))=RP(A)\]
+
+  \TB{Inductive Case 2}: Let \((\diamond)\) be a generic binary operator
+  \((\diamond):\Lp\times\Lp\to\Lp\). 
+  \(A=(B\diamond C),\T{ for some }B,C\in\TR{Form}\Lp\), with
+  \(LP(B)=RP(B)\) and \(LP(C)=RP(C)\) by IH.
+  \[LP(A)=LP((B\diamond C))=1+LP(B)+LP(C)\]
+  \[=1+RP(B)+RP(C)=RP((B\diamond C))=RP(A)\]
+
+  So by the principal of structural induction, \(R(A)\) holds.
 \end{proof}
 \ebox
 
-% end of lec 2 
+% lecture 3
+% last time talking about syntax of prop logic.
 
-% ADD hyperref
+thm: for any \(A \in \TR{Form}(LP),\;LP(A)=RP(A)\), proven above
+
+\begin{verbatim}
+# Machine Proof of Above in Roc
+Inductive formula : Type :=
+  | Atom : string  -> formula
+  | Not  : formula -> formula
+  | And  : formula -> formula -> formula
+  | Or   : formula -> formula -> formula
+  | Imp  : formula -> formula -> formula
+  | Iff  : formula -> formula -> formula
+
+Fixpoint lparans (f : formula) : nat :=
+  mathc f with
+  | Atom _ => 0
+  | Not f1 => lparans f1 + 1
+  | And f1 f2 => lparans f1 + lparns f2 + 1
+  | And f1 f2 => lparans f1 + lparns f2 + 1
+  | And f1 f2 => lparans f1 + lparns f2 + 1
+  | And f1 f2 => lparans f1 + lparns f2 + 1
+
+
+Fixpoint rparans (f : formula) : nat :=
+  mathc f with
+  | Atom _ => 0
+  | Not f1 => rparans f1 + 1
+  | And f1 f2 => rparans f1 + lparns f2 + 1
+  | And f1 f2 => rparans f1 + lparns f2 + 1
+  | And f1 f2 => rparans f1 + lparns f2 + 1
+  | And f1 f2 => rparans f1 + lparns f2 + 1
+
+Theorem lparans_eq_rparens : forall f : formula, lparens f = rparens.
+Proof.
+  induction f.
+  - (* Atom *) simpl. reflexivity.
+  - (* Not *) simpl. rewrite. IHf. reflexivity.
+  - (* And *) simpl. rewrite. IHf1. IHf2. reflexivity.
+  - (* And *) simpl. rewrite. IHf1. IHf2. reflexivity.
+  - (* And *) simpl. rewrite. IHf1. IHf2. reflexivity.
+  - (* And *) simpl. rewrite. IHf1. IHf2. reflexivity.
+Qed.
+
+Theorem lparens_eq_rparens' : forall f : formula, lparens f = rparens f.
+Proof.
+  Induction f; reflexivity.
+Qed.
+\end{verbatim}
+
+\subsection{Semantics of Lp formulas}
+
+What does \(p\) mean?
+\[\mat{
+    p & q\\
+    0 & 0\\
+    1 & 1
+}
+\mat{
+  p & \neg p\\
+  0 & 1\\
+  1 & 0
+}
+\mat{
+  p & q & p\wedge q\\
+  0 & 0 & 0\\
+  1 & 0 & 0\\
+  0 & 1 & 0\\
+  1 & 1 & 1
+}
+\mat{
+  p & q &\neg p& \neg p\wedge q\\
+  0 & 0 & 1 & 0\\
+  1 & 0 & 0 & 0\\
+  0 & 1 & 1 & 1\\
+  1 & 1 & 0 & 0
+}
+\]
+\[(\neg):\{0,1\}\to\{0,1\}\]
+\[(\diamond):\{0,1\}\times\{0,1\}\to\{0,1\}\]
+
+\bbox
+\begin{defn}[Truth Evaluation]\label{defn:truth_evaluation}
+  A \TB{truth evaluation} is a mapping from proposition symbols to
+  truth values.
+  \[t:\TR{Atom}\Lp\to\{0,1\}\]
+\end{defn}
+\ebox
+
+\bbox
+\begin{defn}
+  Evaluation of formula \(A\in\TR{Form}\Lp\) under a truth evaluation
+  \(t\).
+  \bboxnote
+  \begin{nota}[Eval Function]
+    \(A^t\)
+  \end{nota}
+  \ebox
+  
+  \TB{Case 1:} \(A=p,\;p\in\TR{Atom}\Lp\). Then \(A^t=p^t=t(p)\).
+  
+  \TB{Case 2:} \(A=\neg B\).  Then \(A^t=(\neg B)^t\).
+  Note that \(\neg(B^t)\) is wrong, because \(\neg\) is from syntax, and \(0\)
+  is from semantics. So
+  \[(\neg B)^t=\begin{cases}0&:B^t=1\\ 1&:B^t=0\end{cases}\]
+
+  \TB{Case 3:} \(A=B\wedge C\).
+  \[A^t=(B\wedge C)^t=\begin{cases}1&:B^t=1\T{ and }C^t=1\\ 0&:\T{otherwise}\end{cases}\]
+
+  \TB{Case 4:} \(A=B\vee C\).
+  \[A^t=(B\vee C)^t=\begin{cases}1&:B^t=1\T{ or }C^t=1\\ 0&:\T{otherwise}\end{cases}\]
+
+  \TB{Case 5:} \(A=B\to C\).
+  \[A^t=(B\to C)^t=\begin{cases}1&:B^t=0\T{ or }C^t=1\\ 0&:\T{otherwise}\end{cases}\]
+  \bboxnote
+  \[\mat{
+      p & q & p\to q\\
+      1 & 1 & 1\\
+      1 & 0 & 0\\
+      0 & 1 & 1\\
+      0 & 0 & 1
+  }\]
+  \ebox
+
+  \TB{Case 6:} \(A=B\leftrightarrow C\).
+  \[A^t=(B\leftrightarrow C)^t=\begin{cases}1&:B^t=C^t\\ 0&:\T{otherwise}\end{cases}\]
+\end{defn}
+\ebox
+
+\bbox
+\begin{thm}
+  For all \(A\in\TR{Form}\Lp[\neg,\vee,\wedge]\) and \(\forall t\), \(\Delta(A)^t
+  =(\neg A)^t\) where
+  \[\Delta(A):=\begin{cases}
+    \neg p &:\T{if }A=p\T{ for some }p\in\TR{Atom}\Lp[\neg\vee\wedge]\\
+    \neg\Delta(B)&:A=\neg B,\;B\in\TR{Form}\Lp[\neg\vee\wedge]\\
+    \Delta(B)\vee\Delta(C)&:A=B\wedge C\\
+    \Delta(B)\wedge\Delta(C)&:A=B\vee C
+  \end{cases}\]
+  \[\Delta:\TR{Form}\Lp[\neg\vee\wedge]\to\TR{Form}\Lp[\neg\vee\wedge]\]
+\end{thm}
+\ebox
+
+\bboxex
+\TB{Example.}
+\[\Delta(\neg p\wedge q)=\neg\neg p\vee\neg q\]
+\ebox
+
+\bboxproof
+\begin{proof}
+  Let \(R(A)\) be the property that \(\Delta(A)^t=(\neg A)^t\). 
+
+  \TB{Case 1:} \(A=p\).
+  \[\Delta(A)^t=\Delta(p)^t=(\neg p)^t\]
+  \[(\neg A)^t=(\neg p)^t\implies R(A)\T{ holds}\]
+
+  \TB{Case 2:} \(A=\neg B\).
+  \[\Delta(A)^t=\Delta(\neg B)^t=(\neg\Delta(B))^t\]
+  \[\T{IH: }\Delta(B)^t=(\neg B)^t\]
+  \[=\begin{cases}
+    1&:\Delta(B)^t=0\\
+    0&:\Delta(B)^t=1
+  \end{cases}
+  \]
+  \[=\begin{cases}
+    1&:(\neg B)^t=0\\
+    0&:(\neg B)^t=1
+  \end{cases}\]
+  So by IH, case 2 holds.
+\end{proof}
+\ebox
+
+
 % <++>
 \end{document}
 

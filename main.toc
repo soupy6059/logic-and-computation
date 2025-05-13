@@ -9,3 +9,6 @@
 \contentsline {section}{\numberline {4}Translating English into Prop Logic}{5}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Examples}{5}{subsection.4.1}%
 \contentsline {subsubsection}{{\it Lemma}: Balanced Paranthesis}{5}{lem.4.1}%
+\contentsline {subsection}{\numberline {4.2}Semantics of Lp formulas}{7}{subsection.4.2}%
+\contentsline {subsubsection}{{\it Definition}: Truth Evaluation}{8}{defn.4.1}%
+\contentsline {subsubsection}{{\it Notation}: Eval Function}{9}{nota.4.1}%
