@@ -360,6 +360,179 @@ What does \(p\) mean?
 \end{proof}
 \ebox
 
+Recap: \(t:\TR{Atom}\Lp\to\{0,1\}\).
+
+\(A^t:=\) truth value of \(A\) under thrugh valuation \(t\)
+
+\bbox
+\begin{defn}[Satisfiable under t]\label{defn:satisfiable_under_t}
+  A formula \(A\) is \TB{satisfiable} if there exists \(t\) such that 
+  \(A^t=1\).
+\end{defn}
+\ebox
+
+\bbox
+\begin{defn}[Unsatisfiable]\label{defn:unsatisfiable}
+  a formula \(A\) is unstatisfiable if for all \(t\), \(A^t=0\).
+\end{defn}
+\ebox
+
+\bboxex
+\begin{exam}
+  \[p\is\TM{satis}\]
+  \[p\wedge\neg p\is\TM{unsatis}\]
+  \[p\vee \neg p\is\TM{satis}\]
+  \[\T{in some sense, }p\vee\neg p=1\]
+\end{exam}
+\ebox
+
+\bbox
+\begin{defn}[Tautology]\label{defn:tautology}
+  A formula is a \TB{tautology} if \(\forall t\), \(A^t=1\).
+  \bboxex
+  \begin{exam}
+    \(p\vee\neg p\)
+  \end{exam}
+  \ebox
+  \bboxnote
+  \begin{nota}
+    a unsatisfiable formula under \(t\) is called a \TB{contradiction}.
+  \end{nota}
+  \ebox
+\end{defn}
+\ebox
+
+\bbox
+\begin{defn}[Satisfiable set of Formulas]
+  a set \(\Sigma\mathbin{:\subseteq}\Lp\) is called \TB{satisfiable} if
+  \(\exists t\st\forall A\in\Sigma,\;A^t=1\).
+\end{defn}
+\ebox
+A truth evaluation is basically defining the variable to true or false, then
+evaluating the formula.
+\bboxex
+\begin{exam}
+  Let \(\satis\) be the satifiable adjective.
+  \[\{p\}\is \satis\]
+  \[\{p,\neg p\}\is \neg \satis\]
+\end{exam}
+\ebox
+
+\bbox
+\begin{defn}[Unsatisfiable set of Formulas]
+  A set \(\Sigma\is\neg\satis\) when \(\forall t\), 
+  \[\exists A\in\Sigma,\;A^t=0\]
+\end{defn}
+\ebox
+
+\bboxex
+\begin{exam}
+  \(\emptyset\)? It's satisfiable.
+\end{exam}
+\ebox
+
+\bbox
+\begin{exam}[Infinite Sigma]
+  \(\Sigma:=\{p|p\in\TR{Atom}\Lp\}\). Define \(t:t(p_i)=1\).
+\end{exam}
+\ebox
+
+\bbox
+\begin{defn}[Arguement]
+  Consists of a set of premises and a conclusion. The arguement is
+  valid when the conclusion follows from the premises.
+
+  A formula \(A\) is a tautological consequence of \(\Sigma\subseteq\TR{Form}\Lp\)
+  if \(\forall t,\;\Sigma^t=1\implies A^t=1\).
+
+  \[
+    \Sigma^t:=\begin{cases}1&\forall A\in\Sigma,\;A^t=1\\ 0&\TR{otherwise}\end{cases}
+  \]
+  \[
+    \Sigma^t=\bigwedge_{A\in\Sigma}A^t
+  \]
+
+  This is saying \(\Sigma\implies A\)
+  
+\end{defn}
+\ebox
+
+\bboxex
+\begin{exam}
+  \(\Sigma=\{p\to q, p\}\) \(A=q\). So \(\Sigma\implies A\). 
+  Hypothetical syllagism.
+\end{exam}
+\ebox
+
+\bbox
+\begin{nota}
+  \(\Sigma\models A\), means \(A\) is a logical consequence of \(\Sigma\).
+\end{nota}
+\ebox
+
+\bboxex
+\begin{exam}
+  \(\{p\}\not\models\neg p\)
+\end{exam}
+\ebox
+
+\bbox
+\begin{defn}[Maximally Satisfiable]
+  a set \(\Sigma\subseteq\TR{Form}\Lp\) is maximally satisfiable
+  if \(\forall A\in\TR{Form}\Lp,\;\Sigma\models A\T{ xor }\Sigma\models\neg A\).
+
+  Note that \(\Sigma\models\neg A\not\equiv\Sigma\not\models A\).
+\end{defn}
+\ebox
+
+\bboxex
+\begin{exam}[The Infinite Atomic Set is Maximally Satisfiable]
+  \(\{p\}\models p,\;\{p\}\not\models\neg p,\;
+  \{p\}\not\models q,\;\{p\}\not\models\neg q\). So \(\{p\}\) isn't
+  maximally satisfiable.
+  \[\{p_1,p_2,\dots\}:=\Sigma\]
+  \[t(p_i):=1\implies\Sigma^t=1\]
+  \[\implies\Sigma\models A\T{ xor }\Sigma\models\neg A\]
+\end{exam}
+\ebox
+
+\bbox
+\begin{defn}[Uniquely Satisfiable]
+  \(\Sigma\) is uniquely satisfiable if
+  \[
+    \exists!t\st\Sigma^t=1
+  \]
+\end{defn}
+\ebox
+
+
+\bbox
+\begin{thm}[Uniquely Satisfiable iff Maximally Satisfiable]
+  Suppose \(\Sigma\) is satisfiable. Then \(\Sigma\) is 
+  uniquely satisfiable \TB{iff} \(\Sigma\) is maximally satisfiable.
+\end{thm}
+\ebox
+
+\bboxproof
+\begin{proof}
+  \((\implies)\). Assume \(\Sigma\) maximimally satisfiable. 
+  Assume by contradiction that there is \(t_1,t_2\st\Sigma^{t_1}=1\) and
+  \(\Sigma^{t_2}=1\), so \(\Sigma\) isn't uniquely satisfiable.
+
+  So \(t_1\neq t_2\implies\exists p\st t_1(p)\neq t_2\).
+
+  \(t_1(p)=1\iff t_2(p)=0\). Let \(t_1(p)=1\) and \(t_2(p)=0\).
+
+  We know \(\Sigma\models p\mathbin{\TR{xor}}\Sigma\models\neg p\).
+
+  \TB{Case 1:} \(\Sigma\models p\). \(p^{t_1}=1\T{ and }p^{t_2}=1\) which
+  is a contradiction.
+
+  \TB{Case 2:} \(\Sigma\models\neg p\). \((\neg p)^{t_1}=1\T{ and }(\neg p)^{t_2}=1\)
+  which is a contradiction.
+\end{proof}
+\ebox
+
 
 % <++>
 \end{document}

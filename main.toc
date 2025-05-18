@@ -1,14 +1,25 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Proposition}{2}{section.1}%
-\contentsline {section}{\numberline {2}Logical Arguments}{2}{section.2}%
-\contentsline {section}{\numberline {3}Propositional Logic}{3}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Notations and Lp}{3}{subsection.3.1}%
-\contentsline {subsubsection}{{\it Notation}: Symbols}{3}{nota.3.1}%
-\contentsline {subsubsection}{{\it Definition}: Well Formed Expressions (WFE)}{3}{defn.3.1}%
-\contentsline {subsubsection}{{\it Notation}: Operator Priority}{4}{nota.3.2}%
-\contentsline {section}{\numberline {4}Translating English into Prop Logic}{5}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Examples}{5}{subsection.4.1}%
-\contentsline {subsubsection}{{\it Lemma}: Balanced Paranthesis}{5}{lem.4.1}%
-\contentsline {subsection}{\numberline {4.2}Semantics of Lp formulas}{7}{subsection.4.2}%
-\contentsline {subsubsection}{{\it Definition}: Truth Evaluation}{8}{defn.4.1}%
-\contentsline {subsubsection}{{\it Notation}: Eval Function}{9}{nota.4.1}%
+\contentsline {section}{\numberline {1}Proposition}{3}{section.1}%
+\contentsline {section}{\numberline {2}Logical Arguments}{3}{section.2}%
+\contentsline {section}{\numberline {3}Propositional Logic}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Notations and Lp}{4}{subsection.3.1}%
+\contentsline {subsubsection}{{\it Notation}: Symbols}{4}{nota.3.1}%
+\contentsline {subsubsection}{{\it Definition}: Well Formed Expressions (WFE)}{4}{defn.3.1}%
+\contentsline {subsubsection}{{\it Notation}: Operator Priority}{5}{nota.3.2}%
+\contentsline {section}{\numberline {4}Translating English into Prop Logic}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Examples}{6}{subsection.4.1}%
+\contentsline {subsubsection}{{\it Lemma}: Balanced Paranthesis}{6}{lem.4.1}%
+\contentsline {subsection}{\numberline {4.2}Semantics of Lp formulas}{8}{subsection.4.2}%
+\contentsline {subsubsection}{{\it Definition}: Truth Evaluation}{9}{defn.4.1}%
+\contentsline {subsubsection}{{\it Notation}: Eval Function}{10}{nota.4.1}%
+\contentsline {subsubsection}{{\it Definition}: Satisfiable under t}{11}{defn.4.3}%
+\contentsline {subsubsection}{{\it Definition}: Unsatisfiable}{11}{defn.4.4}%
+\contentsline {subsubsection}{{\it Definition}: Tautology}{12}{defn.4.5}%
+\contentsline {subsubsection}{{\it Definition}: Satisfiable set of Formulas}{12}{defn.4.6}%
+\contentsline {subsubsection}{{\it Definition}: Unsatisfiable set of Formulas}{12}{defn.4.7}%
+\contentsline {subsubsection}{{\it Example}: Infinite Sigma}{12}{exam.4.5}%
+\contentsline {subsubsection}{{\it Definition}: Arguement}{13}{defn.4.8}%
+\contentsline {subsubsection}{{\it Definition}: Maximally Satisfiable}{13}{defn.4.9}%
+\contentsline {subsubsection}{{\it Example}: The Infinite Atomic Set is Maximally Satisfiable}{13}{exam.4.8}%
+\contentsline {subsubsection}{{\it Definition}: Uniquely Satisfiable}{13}{defn.4.10}%
+\contentsline {subsubsection}{{\it Theorem}: Uniquely Satisfiable iff Maximally Satisfiable}{13}{thm.4.2}%
