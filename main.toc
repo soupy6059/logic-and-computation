@@ -9,17 +9,42 @@
 \contentsline {section}{\numberline {4}Translating English into Prop Logic}{6}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Examples}{6}{subsection.4.1}%
 \contentsline {subsubsection}{{\it Lemma}: Balanced Paranthesis}{6}{lem.4.1}%
-\contentsline {subsection}{\numberline {4.2}Semantics of Lp formulas}{8}{subsection.4.2}%
-\contentsline {subsubsection}{{\it Definition}: Truth Evaluation}{9}{defn.4.1}%
-\contentsline {subsubsection}{{\it Notation}: Eval Function}{10}{nota.4.1}%
-\contentsline {subsubsection}{{\it Definition}: Satisfiable under t}{11}{defn.4.3}%
-\contentsline {subsubsection}{{\it Definition}: Unsatisfiable}{11}{defn.4.4}%
-\contentsline {subsubsection}{{\it Definition}: Tautology}{12}{defn.4.5}%
-\contentsline {subsubsection}{{\it Definition}: Satisfiable set of Formulas}{12}{defn.4.6}%
-\contentsline {subsubsection}{{\it Definition}: Unsatisfiable set of Formulas}{12}{defn.4.7}%
-\contentsline {subsubsection}{{\it Example}: Infinite Sigma}{12}{exam.4.5}%
-\contentsline {subsubsection}{{\it Definition}: Arguement}{13}{defn.4.8}%
-\contentsline {subsubsection}{{\it Definition}: Maximally Satisfiable}{13}{defn.4.9}%
-\contentsline {subsubsection}{{\it Example}: The Infinite Atomic Set is Maximally Satisfiable}{13}{exam.4.8}%
-\contentsline {subsubsection}{{\it Definition}: Uniquely Satisfiable}{13}{defn.4.10}%
-\contentsline {subsubsection}{{\it Theorem}: Uniquely Satisfiable iff Maximally Satisfiable}{13}{thm.4.2}%
+\contentsline {section}{\numberline {5}Semantics}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Semantics of Lp formulas}{8}{subsection.5.1}%
+\contentsline {subsubsection}{{\it Definition}: Truth Evaluation}{9}{defn.5.1}%
+\contentsline {subsubsection}{{\it Notation}: Eval Function}{10}{nota.5.1}%
+\contentsline {subsubsection}{{\it Definition}: Satisfiable under t}{11}{defn.5.3}%
+\contentsline {subsubsection}{{\it Definition}: Unsatisfiable}{11}{defn.5.4}%
+\contentsline {subsubsection}{{\it Definition}: Tautology}{12}{defn.5.5}%
+\contentsline {subsubsection}{{\it Notation}: Tautology}{12}{nota.5.3}%
+\contentsline {subsubsection}{{\it Definition}: Satisfiable set of Formulas}{12}{defn.5.6}%
+\contentsline {subsubsection}{{\it Definition}: Unsatisfiable set of Formulas}{12}{defn.5.7}%
+\contentsline {subsubsection}{{\it Example}: Infinite Sigma}{12}{exam.5.5}%
+\contentsline {subsubsection}{{\it Definition}: Arguement}{13}{defn.5.8}%
+\contentsline {subsubsection}{{\it Definition}: Maximally Satisfiable}{13}{defn.5.9}%
+\contentsline {subsubsection}{{\it Example}: The Infinite Atomic Set is Maximally Satisfiable}{13}{exam.5.8}%
+\contentsline {subsubsection}{{\it Definition}: Uniquely Satisfiable}{13}{defn.5.10}%
+\contentsline {subsubsection}{{\it Theorem}: Uniquely Satisfiable iff Maximally Satisfiable}{13}{thm.5.2}%
+\contentsline {subsubsection}{{\it Definition}: Models}{14}{defn.5.11}%
+\contentsline {subsubsection}{{\it Definition}: Logical Equivalence}{14}{defn.5.12}%
+\contentsline {subsubsection}{{\it Example}: Important Logical Equivalences}{16}{exam.5.15}%
+\contentsline {subsubsection}{{\it Theorem}: Replaceabiliy}{17}{thm.5.3}%
+\contentsline {subsubsection}{{\it Example}: Pierce's Law}{17}{exam.5.16}%
+\contentsline {subsection}{\numberline {5.2}Normal Forms}{17}{subsection.5.2}%
+\contentsline {subsubsection}{{\it Definition}: Literals}{17}{defn.5.13}%
+\contentsline {subsubsection}{{\it Definition}: Conjuctive Clause}{17}{defn.5.14}%
+\contentsline {subsubsection}{{\it Definition}: Disjunction Clause}{17}{defn.5.15}%
+\contentsline {subsubsection}{{\it Definition}: Conjunctive Normal Form (CNF)}{17}{defn.5.16}%
+\contentsline {subsubsection}{{\it Definition}: Disjunctive Normal Form (DNF)}{17}{defn.5.17}%
+\contentsline {subsubsection}{{\it Example}: into DNF}{18}{exam.5.19}%
+\contentsline {subsubsection}{{\it Example}: into DNF}{18}{exam.5.20}%
+\contentsline {subsection}{\numberline {5.3}Essential Laws of Propositional Calculus}{18}{subsection.5.3}%
+\contentsline {subsubsection}{{\it Definition}: Boolean Algebra}{19}{defn.5.18}%
+\contentsline {subsection}{\numberline {5.4}Amount of Connectives per Formula}{20}{subsection.5.4}%
+\contentsline {subsubsection}{{\it Theorem}: Formula to CNF}{20}{thm.5.4}%
+\contentsline {subsubsection}{{\it Definition}: Adequate Set of Connectives}{21}{defn.5.20}%
+\contentsline {subsubsection}{{\it Theorem}: Std Connectives are Adequate}{21}{thm.5.5}%
+\contentsline {subsubsection}{{\it Theorem}: And and Neg are Ade}{21}{thm.5.6}%
+\contentsline {subsubsection}{{\it Theorem}: NOR is adequate}{22}{thm.5.8}%
+\contentsline {subsubsection}{{\it Theorem}: NAND is ade}{22}{thm.5.9}%
+\contentsline {subsubsection}{{\it Theorem}: And isn't Ade}{22}{thm.5.10}%

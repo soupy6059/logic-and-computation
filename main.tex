@@ -52,7 +52,7 @@ If the concl doesn't follow from prem then the argument is invalid.
 
 \section{Propositional Logic}
 \subsection{Notations and Lp}
-\newcommand{\Lp}[1][]{\TM{Lp_{#1}}}
+\newcommand{\Lp}[1][]{\TM{\mathcal{L}^p_{#1}}}
 
 \bbox
 \begin{nota}[Symbols]\label{nota:sym}
@@ -238,6 +238,7 @@ Proof.
 Qed.
 \end{verbatim}
 
+\section{Semantics}
 \subsection{Semantics of Lp formulas}
 
 What does \(p\) mean?
@@ -402,6 +403,14 @@ Recap: \(t:\TR{Atom}\Lp\to\{0,1\}\).
 \end{defn}
 \ebox
 
+
+\bboxnota
+\begin{nota}[Tautology]
+  If \(A\) is a tautology, then \(A\mathbin{\mid\!=\!\mid}\tau\).
+\end{nota}
+\ebox
+
+
 \bbox
 \begin{defn}[Satisfiable set of Formulas]
   a set \(\Sigma\mathbin{:\subseteq}\Lp\) is called \TB{satisfiable} if
@@ -530,6 +539,493 @@ evaluating the formula.
 
   \TB{Case 2:} \(\Sigma\models\neg p\). \((\neg p)^{t_1}=1\T{ and }(\neg p)^{t_2}=1\)
   which is a contradiction.
+\end{proof}
+\ebox
+
+% lecture 5
+
+% recap: syntax, then semantics
+% truth evaluation
+% t: Atom(Lp)->{0,1}
+%
+% recap: syntax, then semantics
+% truth evaluation
+% t: Atom(Lp)->{0,1}
+% A^t is A under t. (sets the atoms to 1,0; evaluate it)
+% 
+% E |= A defn: E |= A iff \forall t, E^t = 1 ==> A^1 == 1
+
+% E is satis iff
+%   \exists t \st E^t = 1
+
+
+\bboxexam
+\begin{exam}
+  If \(\Sigma\is\neg\satis\implies\Sigma\models A\) holds when?
+  \(\forall t,\;\Sigma^t=0\). So \(\Sigma=1\) is always false.
+  So that always implies \(A^t=1\). So it always holds. YAY.
+\end{exam}
+\ebox
+
+
+\bboxdefn
+\begin{defn}[Models]
+  \(\Sigma\models A\TB{ iff }\Sigma^1=1\implies A^t=1\).
+\end{defn}
+\ebox
+
+\bboxexam
+\begin{exam}
+  \(A\is\neg\satis\implies\Sigma\implies A\) only sometimes
+\end{exam}
+\ebox
+
+\bboxexam
+\begin{exam}
+  \(A\is\tau\implies\Sigma\models A\) always.
+\end{exam}
+\ebox
+
+\bboxexam
+\begin{exam}
+  \(\Sigma\models A\implies \Sigma\cup\{\neg A\}\) is never satis.
+  \[\Sigma^t=1\implies A^t=1\]
+  \[(\Sigma\cup\{\neg A\})^t=1?\]
+  \[\Sigma^t=1\implies\neg A=0\]
+  \[\Sigma^t=0\implies\T{ already not satis}\]
+\end{exam}
+\ebox
+
+
+\bboxexam
+\begin{exam}
+  \(\Sigma\is\satis,\;\Sigma'\subseteq\Sigma\implies\Sigma'\is\satis\)
+  If that \(t\) satis sigma, then it also satis sigma'.
+\end{exam}
+\ebox
+
+\bboxexam
+\begin{exam}
+  \(\Sigma\is\satis,\;\Sigma'\supseteq\Sigma\implies\Sigma'\is\T{sometimes }\satis\)
+\end{exam}
+\ebox
+
+\newcommand{\logeq}{\mathbin{\mid\!=\!\mid}}
+
+\bboxdefn
+\begin{defn}[Logical Equivalence]
+  \(A\) is logically equivalent with \(B\) if
+  \[A\models B\T{ and }B\models A\]
+  \[A\logeq B\]
+\end{defn}
+\ebox
+
+\bboxproof
+\begin{proof}[Logical Equivalence is a Equivalence Relation Proof]
+  Lol nevermind.  
+\end{proof}
+\ebox
+
+\bboxexam
+\begin{exam}[Important Logical Equivalences]\(\,\)
+  \begin{itemize}
+    \item \TB{Conj is Abelian:} \(A\wedge B\logeq B\wedge A\)
+    \item \TB{Disj is Abelian:} \(A\vee B\logeq B\vee A\)
+    \item \TB{Equi is Abelian:} \(A\leftrightarrow B\logeq B\leftrightarrow A\)
+    \item \(\diamond\)\TB{ is Assoc:} \(A\diamond(B\diamond C)\logeq(A\diamond B)\diamond C\)
+      for \((\diamond)\in\{\wedge,\vee,\leftrightarrow\}\)
+    \item \TB{Dist of Disj:} \((A\wedge B)\vee C\logeq(A\vee C)\wedge(B\vee C)\)
+    \item \TB{Dist of Conj:} \((A\wedge B)\wedge C\logeq(A\wedge C)\vee(B\wedge C)\)
+    \item \TB{De Morgan's Disj:} \(\neg(A\vee B)\logeq\neg A\wedge\neg B\)
+    \item \TB{De Morgan's Conj:} \(\neg(A\wedge B)\logeq\neg A\vee\neg B\)
+    \item \(\Delta(A)\logeq\neg A\)
+    \item \(A\logeq\neg\neg A\)
+    \item \(A\vee\neg A\logeq\tau\)
+    \item \(A\wedge\neg A\logeq\mathcal C\).
+    \item \TB{Iden of Disj:} \(A\vee\mathcal C\logeq A\)
+    \item \TB{Iden of Conj:} \(A\wedge\tau\logeq A\)
+    \item \TB{Domination of Conj:} \(A\wedge\mathcal C\logeq\mathcal C\)
+    \item \TB{Domination of Disj} \(A\vee\tau\logeq \tau\)
+    \item \(A\rightarrow B\logeq\neg A\vee B\)
+    \item \TB{Contrapositive Equiv:} \(A\rightarrow B\logeq \neg B\rightarrow\neg A\)
+    \item \(A\leftrightarrow B\logeq(A\rightarrow B)\wedge(B\rightarrow A)\)
+    \item \TB{Absorption of Disj:} \((A\wedge B)\vee A\logeq A\)
+    \item \TB{Absorption of Conj:} \((A\vee B)\wedge A\logeq A\)
+    \item \((A\wedge B)\vee(A\wedge\neg B)\logeq A\)
+    \item \((A\vee B)\wedge(A\vee\neg B)\logeq A\)
+  \end{itemize}
+\end{exam}
+\ebox
+
+\bboxthm
+\begin{thm}[Replaceabiliy]
+  If \(B\logeq C\), then replacing some occurances of B inside A
+  gives a logically equivalent formula. We can do beta reduction.
+\end{thm}
+\ebox
+
+\bboxexam
+\begin{exam}[Pierce's Law]
+  \(((A\rightarrow B)\rightarrow A)\rightarrow A\)
+  \begin{align*}
+    &\logeq((\neg A\vee B)\to A)\to A\\
+    &\logeq(\neg(\neg A\vee B)\vee A)\to A\\
+    &\logeq((A\wedge\neg B)\vee A)\to A\\
+    &\logeq A\to A\\
+    &\logeq\neg A\vee A\\
+    &\logeq A\vee\neg A\\
+    &\logeq 1_\tau
+  \end{align*}
+\end{exam}
+\ebox
+
+\subsection{Normal Forms}
+
+\bboxdefn
+\begin{defn}[Literals]
+  a formula is a \TB{literal} if it is a either \(p\) or \(\neg p\) for some \(p\in\TR{Form}\Lp\). 
+\end{defn}
+\ebox
+
+\bboxdefn
+\begin{defn}[Conjuctive Clause]
+  a formula is a \TB{conjuective clause} is a conjunction of literals.
+\end{defn}
+\ebox
+
+\bboxdefn
+\begin{defn}[Disjunction Clause]
+  a formula is a \TB{disjunction clause} is a disjunction of literals.
+  \bboxexam
+  \begin{exam}
+    \(p\) is a disjunctive clause with 1 disjoint.
+  \end{exam}
+  \ebox
+\end{defn}
+\ebox
+
+\bboxdefn
+\begin{defn}[Conjunctive Normal Form (CNF)]
+  A formula is a (CNF) if it is a conjunction of disj clauses.
+\end{defn}
+\ebox
+
+\bboxdefn
+\begin{defn}[Disjunctive Normal Form (DNF)]
+  A formula is a (DNF) if it is a disjunction of conj clauses.
+  \bboxexam
+  \begin{exam}
+    \((p\wedge\neg q)\vee\neg p\), 
+    \(\neg p\vee p\vee q\)
+  \end{exam}
+  \ebox
+
+\end{defn}
+\ebox
+
+\(\neg p\) is a literal, a disj clause, a conj clause, in CNF, in DNF.
+
+\bboxexam
+\begin{exam}[into DNF]
+  Transform \(p\leftrightarrow\neg q\) into (DNF).
+  \begin{enumerate}
+    \item Use a truth table. \((p\wedge\neg q)\vee(\neg p\wedge q)\).
+      \(\mat{p&q&p\leftrightarrow\neg q\\ 1&1&0\\ 1&0&1\\ 0&1&1\\ 0&0&0}\).
+  \end{enumerate}
+  Transform \(p\leftrightarrow\neg q\) into (CNF).
+  \begin{enumerate}
+    \item Use a truth table of \(\neg(p\leftrightarrow\neg p)\). 
+      \(\logeq(p\wedge q)\vee(\neg p\wedge \neg q)\).
+      \(\overset\neg\longrightarrow(\neg p\vee \neg q)\wedge(p\vee q)\).
+  \end{enumerate}
+\end{exam}
+\ebox
+
+\bboxexam
+\begin{exam}[into DNF]
+  Transform \(p\leftrightarrow\neg q\) into (DNF).
+  \begin{enumerate}
+    \item Use a truth table. \((p\wedge\neg q)\vee(\neg p\wedge q)\).
+      \(\mat{p&q&p\leftrightarrow\neg q\\ 1&1&0\\ 1&0&1\\ 0&1&1\\ 0&0&0}\).
+    \item \(p\iff\neg q\logeq(p\implies\neg q)\wedge(\neg q\implies p)\logeq
+      (\neg p\vee q)\wedge(q\vee p)\T{ is CNF}\logeq \)
+  \end{enumerate}
+\end{exam}
+\ebox
+
+\subsection{Essential Laws of Propositional Calculus}
+
+We can do algebriac simplification over these formulas. I.e. boolean algebra.
+
+
+\bboxdefn
+\begin{defn}[Boolean Algebra]\ 
+    \begin{enumerate}
+        \item underlying set \(B\)
+        \item binary operations \(\{(+),(\cdot)\}\)
+        \item unary operator \(\{\overline{\ \cdot\ }\}\) "complement"
+        \item nullary operator \(1:B\ 0:B\). The functions that take no input and give 1
+        \item Laws:
+            \begin{enumerate}
+                \item \(x+0=x\)
+                \item \(x\cdot 1=x\)
+                \item \(x+\overline x=1\)
+                \item \(x\cdot\overline x=0\)
+                \item \((x+y)+z=x+(y+z)\)
+                \item \((x*y)* z=x*(y*z)\)
+                \item \(x+y=y+x\)
+                \item \(x*y=y*x\)
+            \end{enumerate}
+    \end{enumerate}
+\end{defn}
+\ebox
+
+
+\bboxexam
+\begin{exam}
+    Any set \(S\) generates a boolean algebra. 
+    \begin{enumerate}
+        \item \(B=\PP(S)\)
+        \item \(+=\cup\)
+        \item \(\cdot=\cap\)
+        \item \(\overline{A}=S\backslash A\)
+        \item \(0=\emptyset\)
+        \item \(1=S\)
+        \item Laws:
+            \begin{enumerate}
+                \item \(A\cup\emptyset=A\)
+                \item \(A\cap S=A\)
+                \item \(A\cup(S\backslash A)=S\)
+                \item \(A\cap(S\backslash A)=\emptyset\)
+            \end{enumerate}
+    \end{enumerate}
+\end{exam}
+\ebox
+
+\bboxexam
+\begin{exam}
+    \(\TR{Form}\Lp\) generate a boolean algebra. \(B:=\TR{Form}\Lp\)
+    \begin{enumerate}
+        \item \(+=\vee\)
+        \item \(\cdot=\vee\)
+        \item \(\overline A=\neg A\)
+        \item \(0=\T{any contradiction}\)
+        \item \(1=\T{any tautology}\)
+        \item Laws:
+            \begin{enumerate}
+                \item \(A\lor 0\logeq A\)
+                \item \(A\land 1\logeq A\)
+                \item \(A\lor\neg A\logeq 1\)
+                \item \(A\land\neg A\logeq 0\)
+                \item ...
+            \end{enumerate}
+    \end{enumerate}
+\end{exam}
+\ebox
+
+\bboxexam
+\begin{exam}
+    Disjunctive Normal Form.
+    \[
+        xyz+x\overline yz+xy\overline z
+    \]
+    \[
+        \T{2 OR GATES, 2 NOT GATES, 6 AND GATES}
+    \]
+    \[
+        \logeq x(yz+\overline yz+y\overline z)
+    \]
+    \[
+        \logeq x(yz+yz+\overline yz+y\overline z)
+        \T{ since }b+b=b
+    \]
+    \[
+        \logeq x((y+\overline y)z+y(z+\overline z))
+    \]
+    \[
+        \logeq x(y+z)
+    \]
+\end{exam}
+\ebox
+
+\subsection{Amount of Connectives per Formula}
+
+
+\bboxthm
+\begin{thm}[Formula to CNF]
+    Any Formula in \(\Lp\) is logically eq to atleast one forumla in CNF (also DNF).
+\end{thm}
+\ebox
+
+\bboxnote
+\begin{note}
+    We remove \(\implies\) and \(\iff\) using laws.
+
+    Push \(\neg\) inside \(\land/\lor\) using de Morgan's laws
+
+    So we only need \(\{\neg,\land,\lor\}\)
+\end{note}
+\ebox
+
+How many connectives are there? A connective is a n-ary boolean function.
+
+\begin{enumerate}
+    \item \(n=1:4\T{ connectives}\)
+    \item \(n=2:16\T{ connectives}\)
+\end{enumerate}
+
+We have \(2^n\) possible inputs, considering a binary string as input. For each input,
+there are \(2\) choices. So we have \(2^{2^n}\) choices.
+
+
+
+\bboxdefn
+\begin{defn}
+    A set of logical connectives \(S\) is adequate if the connectives in \(S\) 
+    are capable of expressing any set of n-ary connectives.
+\end{defn}
+\ebox
+
+\bboxdefn
+\begin{defn}[Adequate Set of Connectives]
+    \(S\) connectives is adequate if for any n-ary boolean function \(f:\{0,1\}^n\to\{0,1\}\)
+    and for any set of prop symbols \(p_1,p_2,\dots,p_n\) there is a 
+    \(A\in\TR{From}\Lp\) using only connectives in \(S\) and prop symbols of
+    \(p_1,\dots,p_n,\;\st\)
+    \[
+        f(p_1,\dots,p_n)\logeq A
+    \]
+\end{defn}
+\ebox
+
+\bboxthm
+\begin{thm}[Std Connectives are Adequate]
+    \(\{\neg,\lor,\land\}\) is ade.
+\end{thm}
+\ebox
+
+
+\bboxthm
+\begin{thm}[And and Neg are Ade]
+    \(\{\neg,\land\}\) is ade.
+\end{thm}
+\ebox
+
+\bboxproof
+\begin{proof}
+    We already know that
+    \[
+        \{\neg,\lor,\land\}\is\TM{ade}
+    \]
+    \[
+        \T{Show }\forall c\in\{\neg,\land,\lor\}\T{ can be expressed in }
+        \{\neg,\land\}
+    \]
+    \[
+        \neg p\logeq\neg p
+    \]
+    \[
+        p\land q\logeq p\land q
+    \]
+    \[
+        p\lor q\logeq\neg(\neg p\land\neg q)
+    \]
+\end{proof}
+\ebox
+
+
+\bboxthm
+\begin{thm}
+    \[\{\neg,\lor\}\]
+    \[
+        \{\neg,\implies\}
+    \]
+\end{thm}
+\ebox
+
+
+\bboxnote
+\begin{thm}[NOR is adequate]
+    The non-disjunction, NOR is adequate alone.
+    \[
+        \mat{p&q&\TR{NOR}(p,q)\\ 1&1&0\\ 1&0&0\\ 0&1&0\\ 0&0&1}
+    \]
+\end{thm}
+\ebox
+
+\bboxproof
+\begin{proof}
+    We know \(\{\neg,\lor\}\) is ade.
+    \[
+        \neg p\logeq\TR{NOR}(p,p)
+    \]
+    \[
+        p\lor q\logeq\neg\neg(p\lor q)\logeq\neg\TR{NOR}(p,q)
+        \logeq\TR{NOR}(\TR{NOR}(p,q),\TR{NOR}(p,q))
+    \]
+\end{proof}
+\ebox
+
+\bboxthm
+\begin{thm}[NAND is ade]
+    \(\{\TR{NAND}\}\) is ade.
+\end{thm}
+\ebox
+
+\bboxproof
+\begin{proof}
+    EX.
+\end{proof}
+\ebox
+
+\bboxthm
+\begin{thm}[And isn't Ade]
+    \(\{\wedge\}\) isn't ade.
+\end{thm}
+\ebox
+
+\bboxproof
+\begin{proof}
+    Assume \(\{\wedge\}\) is ade, for the sake of contradiction. 
+    So that means every formula can be written in terms of only \(\land\).
+    So \(\neg p\logeq p_1\land p_2\land p_3\land\cdots\logeq A\), where
+    \(p_i=f_i(p)\) for some \(f_i\). Build out of \(p\).
+
+    Let \(t\) be a truth evaluation s/t \((\neg p)^t=1\).
+    \[
+        \implies p^t=0
+    \]
+    \[
+        \T{We know }\neg p\logeq A
+    \]
+    \[
+        \implies A^t\logeq 1
+    \]
+    \[
+        \T{claim }A^t=0
+    \]
+    This is a contradiction.
+
+    \TB{Claim: }For any \(A\in\TR{Form}\Lp[\wedge]\), if \(p^t=0\) then \(A^t=0\).
+
+    \bboxproof
+    \begin{proof}
+        Induction on \(A\).
+        \TB{Base Case: }\(A=p\).
+        \[
+            A^t=p^t=0
+        \]
+        \TB{Inductive Case: }\(A=B\land C,\T{ for some }B,C\in\TR{Form}\Lp[\wedge]\)
+        \[
+            \T{IH: }B^t=C^t=0
+        \]
+        \[
+            A^t=(B\land C)^t=0
+        \]
+        So by induction, \(A^t=0\). So the claim holds, so the proof follows.
+    \end{proof}
+    \ebox
+
 \end{proof}
 \ebox
 
